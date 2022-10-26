@@ -1,9 +1,3 @@
-//
-//  SceneDelegate.swift
-//  To-Do List
-//
-//  Created by Tatiana Kuvarzina on 27.04.2022.
-//
 
 import UIKit
 

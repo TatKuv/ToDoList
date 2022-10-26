@@ -3,7 +3,7 @@ import UIKit
 
 class TaskTableViewController: UITableViewController  {
     
-    var tasks = [Task (taskDescription: ""), Task (taskDescription: "")]
+    var tasks = [Task (taskDescription: "Clean the pool"), Task (taskDescription: "Buy eggs", isDone: true)]
     
     func addNewTask () {
         
@@ -18,7 +18,7 @@ class TaskTableViewController: UITableViewController  {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
 
@@ -37,7 +37,7 @@ class TaskTableViewController: UITableViewController  {
         let object = tasks[indexPath.row]
         cell.setCells(object: object)
         print("hello")
-        
+        cell.newTask = self
 //        func addNewTask () {
 //            let newTask = Task (taskDescription: "")
 //            tasks.insert(newTask, at: indexPath.row + 1)

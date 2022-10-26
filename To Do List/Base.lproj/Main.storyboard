@@ -31,7 +31,7 @@
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="" image="square"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="square">
-                                                        <color key="baseForegroundColor" systemColor="quaternaryLabelColor"/>
+                                                        <color key="baseForegroundColor" systemColor="systemYellowColor"/>
                                                     </buttonConfiguration>
                                                     <variation key="heightClass=regular-widthClass=regular">
                                                         <color key="tintColor" systemColor="labelColor"/>
@@ -44,6 +44,9 @@
                                                     <rect key="frame" x="152" y="0.0" width="232" height="43.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="vc0-1F-G57" id="J8L-Uk-IbP"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                         </stackView>
@@ -98,11 +101,11 @@
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="quaternaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.17999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
