@@ -11,7 +11,7 @@ protocol TaskTableViewCellDelegate: AnyObject {
 
 
 
-class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
+class TaskTableViewCell: UITableViewCell {
     
     weak var delegate: TaskTableViewCellDelegate?
     
@@ -46,7 +46,8 @@ class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
 //    override func awakeFromNib() {
 //        super.awakeFromNib()
 //        setButton(button: taskCheckBox)
-//        //self.taskTextField.delegate = self
+//        self.taskTextField.delegate = self
+//    taskTextField.delegate = self
 //    }
     
 

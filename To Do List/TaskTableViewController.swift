@@ -50,6 +50,7 @@ class TaskTableViewController: UITableViewController, UITextFieldDelegate, TaskT
         let object = tasks[indexPath.row]
         cell.setCells(object: object)
         print("hello")
+        cell.taskTextField.delegate = self
         cell.delegate = self
         return cell
     }
