@@ -1,8 +1,20 @@
 import UIKit
 
+
+protocol TaskTableViewCellDelegate: AnyObject {
+  //func checkTableViewCell(_ cell: TaskTableViewCell, didChagneCheckedState checked: Bool)
+    func addNewTask (_ cell: TaskTableViewCell, task: String)
+    func doneStatus (_ cell : TaskTableViewCell, taskIsDone: Bool)
+    
+}
+
+
+
+
 class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
     
-    var newTask : UITableViewController?
+    weak var delegate: TaskTableViewCellDelegate?
+    
     
     private var TaskIsDone = false
     
@@ -11,9 +23,8 @@ class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var taskCheckBox: UIButton!
     
     @IBAction func taskCheckBox(_ sender: UIButton) {
-        
+        TaskIsDone = !TaskIsDone
         setButton(button: sender)
-        
     }
     
     func setButton(button: UIButton) {
@@ -23,12 +34,11 @@ class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
             //button.currentImage == UIImage(systemName: "square")
             button.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
             attributedString.addAttribute(.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length-1))
-            
         } else {
             button.setImage( UIImage(systemName: "square"), for: .normal)
             attributedString.removeAttribute(.strikethroughStyle, range: NSMakeRange(0, attributedString.length-1))
         }
-        TaskIsDone = !TaskIsDone
+        delegate?.doneStatus(self, taskIsDone: TaskIsDone)
         taskTextField.attributedText = attributedString
     }
     
@@ -40,20 +50,19 @@ class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
 //    }
     
 
-//    func textFieldShouldReturn(taskTextField: UITextField) -> Bool {
-//        
-//        print("Enter")
-//        taskTextField.resignFirstResponder()
-//        performAction()
-//        return true
-//    }
-//    
-//    func performAction() {
-//        print("here i am")
-//        let addTask = TaskTableViewController()
-//        addTask.addNewTask()
-//        
-//    }
+    func textFieldShouldReturn(_ taskTextField: UITextField) -> Bool {
+        
+        print("Enter")
+        taskTextField.resignFirstResponder()
+        performAction()
+        return true
+    }
+    
+    func performAction() {
+        print("here i am")
+        delegate?.addNewTask(self, task: "Something else")
+        
+    }
     
     
     func setCells (object : Task){
@@ -64,3 +73,4 @@ class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
 }
+ 

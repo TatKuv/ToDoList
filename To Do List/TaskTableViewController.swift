@@ -1,19 +1,32 @@
 
 import UIKit
 
-class TaskTableViewController: UITableViewController  {
+class TaskTableViewController: UITableViewController, UITextFieldDelegate, TaskTableViewCellDelegate  {
     
     var tasks = [Task (taskDescription: "Clean the pool"), Task (taskDescription: "Buy eggs", isDone: true)]
     
-    func addNewTask () {
+    
+    
+    func addNewTask (_ cell: TaskTableViewCell, task: String) {
         
-        let indexPath = tableView.indexPathForSelectedRow!
-
-        let newTask = Task (taskDescription: "")
+        guard let indexPath = tableView.indexPath(for: cell) else {
+              return
+            }
+        let newTask = Task (taskDescription: task)
         tasks.insert(newTask, at: indexPath.row + 1)
-        self.tableView.reloadData()
+        //tasks.append(newTask)
+        self.tableView.insertRows(at: [IndexPath(row: indexPath.row + 1, section: 0)], with: .automatic)
+        //self.tableView.reloadData()
         print("new task")
         
+    }
+    
+    func doneStatus(_ cell: TaskTableViewCell, taskIsDone: Bool) {
+        
+        guard let indexPath = tableView.indexPath(for: cell) else {
+              return
+            }
+        tasks[indexPath.row].isDone = taskIsDone
     }
 
     override func viewDidLoad() {
@@ -37,11 +50,7 @@ class TaskTableViewController: UITableViewController  {
         let object = tasks[indexPath.row]
         cell.setCells(object: object)
         print("hello")
-        cell.newTask = self
-//        func addNewTask () {
-//            let newTask = Task (taskDescription: "")
-//            tasks.insert(newTask, at: indexPath.row + 1)
-//        }
+        cell.delegate = self
         return cell
     }
     
@@ -72,5 +81,10 @@ class TaskTableViewController: UITableViewController  {
         action.backgroundColor = .systemRed
         return action
     }
+    
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        deselect
+//    }
+    
  
 }
