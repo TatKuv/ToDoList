@@ -5,6 +5,8 @@ class TaskTableViewController: UITableViewController, TaskTableViewCellDelegate 
     
     var tasks = [Task (taskDescription: "Clean the pool"), Task (taskDescription: "Buy eggs", isDone: true)]
     
+    @IBAction func doneOrAdd(_ sender: UIBarButtonItem) {
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -12,15 +14,18 @@ class TaskTableViewController: UITableViewController, TaskTableViewCellDelegate 
     }
     
     
-    func addNewTask (_ cell: TaskTableViewCell, task: String) {
+    func addNewTask (_ cell: TaskTableViewCell) {
         
         guard let indexPath = tableView.indexPath(for: cell) else {
               return
             }
-        let newTask = Task (taskDescription: task)
+        let newTask = Task (taskDescription: " ")
         tasks.insert(newTask, at: indexPath.row + 1)
-        //tasks.append(newTask)
-        self.tableView.insertRows(at: [IndexPath(row: indexPath.row + 1, section: 0)], with: .automatic)
+        
+        let newIndexPath = IndexPath(row: indexPath.row + 1, section: 0)
+        self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+        let newCell: TaskTableViewCell = tableView.cellForRow(at: newIndexPath) as! TaskTableViewCell
+        newCell.taskTextField.becomeFirstResponder()
         //self.tableView.reloadData()
         print("new task")
         
@@ -82,5 +87,10 @@ class TaskTableViewController: UITableViewController, TaskTableViewCellDelegate 
         return action
     }
 
- 
+    func deleteTask(_ cell: TaskTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        self.tasks.remove(at: indexPath.row)
+        self.tableView.deleteRows (at: [indexPath], with: .fade)
+       
+    }
 }
