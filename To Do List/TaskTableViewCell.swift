@@ -11,15 +11,13 @@ protocol TaskTableViewCellDelegate: AnyObject {
 
 
 
-class TaskTableViewCell: UITableViewCell {
+class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     weak var delegate: TaskTableViewCellDelegate?
-    
     
     private var TaskIsDone = false
     
     @IBOutlet weak var taskTextField: UITextField!
-    
     @IBOutlet weak var taskCheckBox: UIButton!
     
     @IBAction func taskCheckBox(_ sender: UIButton) {
@@ -43,31 +41,21 @@ class TaskTableViewCell: UITableViewCell {
     }
     
     
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        setButton(button: taskCheckBox)
-//        self.taskTextField.delegate = self
-//    taskTextField.delegate = self
-//    }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        taskTextField.delegate = self
+    }
     
 
     func textFieldShouldReturn(_ taskTextField: UITextField) -> Bool {
-        
         print("Enter")
         taskTextField.resignFirstResponder()
-        performAction()
-        return true
-    }
-    
-    func performAction() {
-        print("here i am")
         delegate?.addNewTask(self, task: "Something else")
-        
+        return true
     }
     
     
     func setCells (object : Task){
-        
         self.taskTextField.text = object.taskDescription
         self.TaskIsDone = object.isDone
         setButton(button: taskCheckBox)

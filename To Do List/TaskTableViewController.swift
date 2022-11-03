@@ -1,10 +1,15 @@
 
 import UIKit
 
-class TaskTableViewController: UITableViewController, UITextFieldDelegate, TaskTableViewCellDelegate  {
+class TaskTableViewController: UITableViewController, TaskTableViewCellDelegate  {
     
     var tasks = [Task (taskDescription: "Clean the pool"), Task (taskDescription: "Buy eggs", isDone: true)]
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
     
     
     func addNewTask (_ cell: TaskTableViewCell, task: String) {
@@ -29,12 +34,6 @@ class TaskTableViewController: UITableViewController, UITextFieldDelegate, TaskT
         tasks[indexPath.row].isDone = taskIsDone
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
-
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -50,7 +49,7 @@ class TaskTableViewController: UITableViewController, UITextFieldDelegate, TaskT
         let object = tasks[indexPath.row]
         cell.setCells(object: object)
         print("hello")
-        cell.taskTextField.delegate = self
+        //cell.taskTextField.delegate = self
         cell.delegate = self
         return cell
     }
@@ -82,10 +81,6 @@ class TaskTableViewController: UITableViewController, UITextFieldDelegate, TaskT
         action.backgroundColor = .systemRed
         return action
     }
-    
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        deselect
-//    }
-    
+
  
 }
