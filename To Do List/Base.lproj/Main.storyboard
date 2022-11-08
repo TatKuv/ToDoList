@@ -71,9 +71,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="To-Do List" id="78W-0F-p5h">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="7qJ-KJ-aDU">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="7qJ-KJ-aDU">
                             <connections>
-                                <action selector="doneOrAdd:" destination="vc0-1F-G57" id="aRT-ON-zcf"/>
+                                <action selector="add:" destination="vc0-1F-G57" id="ayt-gt-rV7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

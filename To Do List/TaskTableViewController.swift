@@ -5,28 +5,34 @@ class TaskTableViewController: UITableViewController, TaskTableViewCellDelegate 
     
     var tasks = [Task (taskDescription: "Clean the pool"), Task (taskDescription: "Buy eggs", isDone: true)]
     
-    @IBAction func doneOrAdd(_ sender: UIBarButtonItem) {
+    @IBAction func add(_ sender: Any) {
+        print("+")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nill)
         //self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    func addNewTask (_ index: Int) {
+        let newTask = Task (taskDescription: " ")
+        tasks.insert(newTask, at: index)
+        
+        let newIndexPath = IndexPath(row: index, section: 0)
+        self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+        let newCell: TaskTableViewCell = tableView.cellForRow(at: newIndexPath) as! TaskTableViewCell
+        newCell.taskTextField.becomeFirstResponder()
+    }
     
-    func addNewTask (_ cell: TaskTableViewCell) {
+    func addTaskFromCell (_ cell: TaskTableViewCell) {
         
         guard let indexPath = tableView.indexPath(for: cell) else {
               return
             }
-        let newTask = Task (taskDescription: " ")
-        tasks.insert(newTask, at: indexPath.row + 1)
+        let index = indexPath.row + 1
         
-        let newIndexPath = IndexPath(row: indexPath.row + 1, section: 0)
-        self.tableView.insertRows(at: [newIndexPath], with: .automatic)
-        let newCell: TaskTableViewCell = tableView.cellForRow(at: newIndexPath) as! TaskTableViewCell
-        newCell.taskTextField.becomeFirstResponder()
-        //self.tableView.reloadData()
+        addNewTask(index)
         print("new task")
         
     }

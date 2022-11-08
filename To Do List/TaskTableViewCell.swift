@@ -2,7 +2,7 @@ import UIKit
 
 
 protocol TaskTableViewCellDelegate: AnyObject {
-    func addNewTask (_ cell: TaskTableViewCell)
+    func addTaskFromCell (_ cell: TaskTableViewCell)
     func doneStatus (_ cell : TaskTableViewCell, taskIsDone: Bool)
     func deleteTask (_ cell: TaskTableViewCell)
 }
@@ -51,7 +51,7 @@ class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
         taskTextField.resignFirstResponder()
         guard !(taskTextField.text?.isEmpty ?? true) else { delegate?.deleteTask(self); return true}
         //save changes 
-        delegate?.addNewTask(self)
+        delegate?.addTaskFromCell(self)
         return true
     }
     
