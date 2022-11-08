@@ -5,6 +5,8 @@ protocol TaskTableViewCellDelegate: AnyObject {
     func addTaskFromCell (_ cell: TaskTableViewCell)
     func doneStatus (_ cell : TaskTableViewCell, taskIsDone: Bool)
     func deleteTask (_ cell: TaskTableViewCell)
+    func saveChanges (_ cell: TaskTableViewCell)
+    func changeRightBtn ( _ cell: TaskTableViewCell, editing : Bool)
 }
 
 
@@ -48,9 +50,11 @@ class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     func textFieldShouldReturn(_ taskTextField: UITextField) -> Bool {
         print("Enter")
-        taskTextField.resignFirstResponder()
-        guard !(taskTextField.text?.isEmpty ?? true) else { delegate?.deleteTask(self); return true}
-        //save changes 
+        //taskTextField.resignFirstResponder()
+        guard !(taskTextField.text?.isEmpty ?? true) else {
+            delegate?.deleteTask(self);
+            return true}
+        delegate?.saveChanges(self)
         delegate?.addTaskFromCell(self)
         return true
     }
@@ -62,5 +66,15 @@ class TaskTableViewCell: UITableViewCell, UITextFieldDelegate {
         setButton(button: taskCheckBox)
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("begin")
+        let isActive = true
+        delegate?.changeRightBtn(self,editing: isActive)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let isActive = false
+        delegate?.changeRightBtn(self,editing: isActive)
+    }
 }
  

@@ -1,18 +1,43 @@
 
 import UIKit
 
-class TaskTableViewController: UITableViewController, TaskTableViewCellDelegate  {
+class TaskTableViewController: UITableViewController, TaskTableViewCellDelegate, UITextFieldDelegate  {
     
     var tasks = [Task (taskDescription: "Clean the pool"), Task (taskDescription: "Buy eggs", isDone: true)]
-    
-    @IBAction func add(_ sender: Any) {
-        print("+")
-    }
+    var ActiveTFInCell : TaskTableViewCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: nill)
+        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.add))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.add))
+        tableView.allowsSelection = false
         //self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    func changeRightBtn(_ cell: TaskTableViewCell, editing: Bool) {
+        if editing {
+            ActiveTFInCell = cell
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(self.save))
+        } else {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.add))
+        }
+    }
+    @objc private func save() {
+        guard let cell = ActiveTFInCell else { return }
+        let row = tableView.indexPath(for: cell)
+        cell.taskTextField.resignFirstResponder()
+        saveChanges(cell)
+    }
+    
+    @objc private func add() {
+        addNewTask(tasks.count)
+        }
+    
+    func saveChanges (_ cell : TaskTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else {
+              return
+            }
+        tasks[indexPath.row].taskDescription = cell.taskTextField.text ?? ""
     }
     
     func addNewTask (_ index: Int) {
